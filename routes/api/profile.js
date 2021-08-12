@@ -195,13 +195,15 @@ passport.authenticate('jwt',{session:false}),
     })
     .catch(err => res.status(400).json(err))
 })
-router.delete('/',passport.authenticate('jwt',{session:false}),(req,res)=>{
-    User.findByIdAndRemove(req.user.id)
-    .then(()=>res.json({msg:'Profile deleted'}))
+router.delete('/',passport.authenticate('jwt',{session:false}),async(req,res)=>{
+    // User.findByIdAndRemove(req.user.id)
+    // .then(()=>res.json({msg:'Profile deleted'}))
+    // Profile.findOne({user: req.user.id})
+    // .then((profile) => {
+    //     console.log(profile)
+    // })
+    await Profile.findOneAndRemove({user: req.user.id})
+    await User.findByIdAndRemove(req.user.id)
+    console.log('deleted')
 });
-
-
-
-
-
 module.exports = router;

@@ -7,6 +7,7 @@ const ProfileItem = (props) => {
     return(
         props.profiles.map((profile) => {
             const {user: {avatar, name}} = profile
+            console.log(profile)
             
             return(
                 <div className="card card-body bg-light mb-3">
