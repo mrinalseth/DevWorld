@@ -9,6 +9,7 @@ import Spinner from '../common/spinner'
 import {createProfile, getCurrentProfile} from '../../actions/profileActions'
 import axios from 'axios'
 import TextWithIcon from '../common/TextWithIcon'
+import storage from '../../firebase'
 
 const EditProfile = () => {
     const dispatch = useDispatch()
@@ -29,6 +30,8 @@ const EditProfile = () => {
     const [linkdin,setLinkedin] = React.useState("")
     const [youtube,setYoutube] = React.useState("")
     const [instagram,setInstagram] = React.useState("")
+    const [file, setFile] = React.useState(null)
+
 
     
 
@@ -55,10 +58,15 @@ const EditProfile = () => {
 
     
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault()
+        const storageRef = storage.ref()
+        const fileRef = storageRef.child(file.name)
+        await fileRef.put(file)
+        const fileUrl = await fileRef.getDownloadURL()
         const newprofile = {
             handle: handle,
+            cv:fileUrl,
             status:status,
             company:company,
             website:website,
@@ -75,6 +83,9 @@ const EditProfile = () => {
         console.log(newprofile)
         dispatch(createProfile(newprofile))
         
+    }
+    const onchange = (e) => {
+      setFile(e.target.files[0])
     }
 
     const options = [
@@ -217,6 +228,7 @@ const EditProfile = () => {
                     type="submit" 
                     className="btn btn-info btn-block mt-4"
                      />
+                <input type="file" onChange={onchange} required />
               </form>
             </div>
           </div>
@@ -226,17 +238,3 @@ const EditProfile = () => {
     }
 }
 export default EditProfile
-
-// import React, { useEffect, useState } from 'react'
-// import axios from 'axios'
-
-// const EditProfile = () => {
-
-//   const [handle,setHandle] = React.useState(data.handle)
-  
-//   return(
-//     <h1>TODO::</h1>
-//   )
-// }
-
-// export default EditProfile

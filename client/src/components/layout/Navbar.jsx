@@ -2,7 +2,40 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch ,useSelector} from 'react-redux'
 import {logUserOut} from '../../actions/authActions'
+import styled from 'styled-components'
 function Navbar(){
+
+  const styles = {
+    Brand: {
+      letterSpacing: "12px",
+      fontWeight: "650",
+      color: "#80d43f",
+      textDecoration: "none",
+      fontSize: "24px"
+    },
+    NavMenu: {
+      fontSize: "18px",
+      letterSpacing: "1.42px",
+      lineHeight: "1.08",
+      padding: "2px 0",
+      position: "relative",
+      whiteSpace: "nowrap",
+      textDecoration: "none",
+      color: "#1b5e1c",
+      padding: "25px"
+    },
+    NavMenuContainer: {
+      alignItems: "center",
+      flexflow: "row nowrap",
+      height: "100%",
+      margin: "10px",
+      padding: "0px",
+      position: "relative",
+      marginRight: "auto",
+      marginLeft: "25px",
+      display: "flex",
+    }
+  }
 
   const {isAuthenticated,user} = useSelector(state => state.auth)
   const dispatch = useDispatch();
@@ -11,51 +44,104 @@ function Navbar(){
     marginRight: '5px'
   }
   const authLinks = (
-    <ul className="navbar-nav ml-auto">
-      <li className="nav-item">
-        <Link className="nav-link" to="/dashboard">Dashboard</Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/post">Posts</Link>
-      </li>
-      <li className="nav-item">
-        <img src={user.avatar} style={style} alt=""/>
-      </li>
-    <a className="nav-link" href="#" onClick = {() => {
+    <div style={styles.NavMenuContainer}>
+        <Link style={styles.NavMenu} to="/dashboard">Dashboard</Link>
+        <Link style={styles.NavMenu} to="/post">Posts</Link>
+    <a style={styles.NavMenu} href="#" onClick = {() => {
       dispatch(logUserOut())
     }}>Logout</a>
-  </ul>
+  </div>
   )  
   const guestLinks = (
-    <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">Sign Up</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
-              </li>
-            </ul>
+    <div style={styles.NavMenuContainer}>
+      <Link style={styles.NavMenu} to="/register">SignUp</Link>
+      <Link style={styles.NavMenu} to="/login">Login</Link>
+    </div>   
   )
+
     return(
-        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/">DevConnector</Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-    
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profiles"> Developers
-                </Link>
-              </li>
-            </ul>
-            {isAuthenticated ? authLinks : guestLinks }
-            
-          </div>
-        </div>
-      </nav>
+      <>
+            <Nav>
+                <Logo>
+                  <Link style={styles.Brand} to="/">SOCIAL</Link>
+                </Logo>
+                <NavMenu>
+                <Link style={styles.NavMenu} to="/profiles"> Developers</Link>
+                {isAuthenticated ? authLinks : guestLinks }
+                </NavMenu>
+            </Nav>
+      </>
     )
 }
+const Nav = styled.nav`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: #f1fae8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 36px;
+    letter-spacing: 16px;
+    z-index: 3;
+`;
+
+const Logo = styled.a`
+    Link {
+      letter-spacing: 15px;
+      font-weight: 650;
+      color: #80d43f;
+    }
+`;
+
+const NavMenu = styled.div`
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    justify-content: flex-end;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    margin-right: auto;
+    margin-left: 25px;
+    a {
+        display: flex;
+        align-item: center;
+        padding: 0 12px;
+        img {
+            height: 20px;
+            min-width: 20px;
+            width: 20px;
+            z-index: auto;
+        }
+        span {
+            font-size: 13px;
+            letter-spacing: 1.42px;
+            line-height: 1.08;
+            padding: 2px 0;
+            position: relative;
+            white-space: nowrap;
+        }
+    }
+`;
+
+const Login = styled.a`
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 1px solid white;
+    border-radius: 4px;
+    transition: all 0.2s ease 0s;
+    &:hover {
+        background-color: #f9f9f9;
+        color: black;
+        border-color: transparent;
+    }
+`;
+
 export default Navbar;

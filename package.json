@@ -23,6 +23,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "react-fast-compare": "^3.2.0",
+    "rsuite": "^4.10.3",
     "validator": "^13.5.2"
   },
   "devDependencies": {

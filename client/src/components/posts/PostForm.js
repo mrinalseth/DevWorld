@@ -3,28 +3,62 @@ import TextAreaFieldGroup from '../common/TextAreaFeildGroup'
 import {addPost} from '../../actions/postActions'
 import {useSelector, useDispatch} from 'react-redux'
 import {getPost} from '../../actions/postActions'
+import storage from '../../firebase'
 
 
 const PostForm = () => {
 
     const [text, setText] = useState('')
+    const [file, setFile] = useState(null)
+
     let errors = useSelector(state => state.errors)
     const {user:{name,avatar}} = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault()
+        const storageRef = storage.ref()
+        const fileRef = storageRef.child(file.name)
+        await fileRef.put(file)
+        const fileUrl = await fileRef.getDownloadURL()
+        const getType = () => {
+          let type
+          if(file.type.includes('image')){
+            type = "image"
+          }
+          else if(file.type.includes('pdf')){
+            type = "pdf"
+          }
+          else if(file.type.includes('officedocument')){
+            type = "word"
+          }
+          else if(file.type.includes('msword')){
+            type = "word"
+          }
+          else if(file.type.includes('video')){
+            type = 'video'
+          }
+          else if(file.type.includes('audio')){
+            type = 'audio'
+          }
+          return type
+        }
         const newpost = {
             text,
             name,
-            avatar
+            avatar,
+            mediaLink: fileUrl,
+            mediaType: getType()
         }
         dispatch(addPost(newpost))
         dispatch(getPost())
         setText('')
         errors.text = null
     }
+    const onChange = (e) => {
+      setFile(e.target.files[0])
+    }
     return (
-        <div className="post-form mb-3">
+        <div style={{margin: "100px"}}>
             <div className="card card-info">
               <div className="card-header bg-info text-white">
                 Say Somthing...
@@ -32,6 +66,7 @@ const PostForm = () => {
               <div className="card-body">
                 <form onSubmit ={onSubmit}>
                   <div className="form-group">
+                  <input type="file" onChange={onChange} />
                     <TextAreaFieldGroup
                         placeholder="Create a post"
                         name={text}

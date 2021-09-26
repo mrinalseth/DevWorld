@@ -9,8 +9,6 @@ const User = require('../../models/User')
 
 const router = express.Router()
 
-
-
 router.get('/',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
         const err = {};
@@ -36,6 +34,7 @@ router.post('/',passport.authenticate('jwt',{session:false}),
         const profileField = {};
         profileField.user = req.user.id;
         if(req.body.handle) profileField.handle = req.body.handle;
+        if(req.body.cv) profileField.cv = req.body.cv;
         if(req.body.company) profileField.company = req.body.company;
         if(req.body.website) profileField.website = req.body.website;
         if(req.body.location) profileField.location = req.body.location;
@@ -196,14 +195,12 @@ passport.authenticate('jwt',{session:false}),
     .catch(err => res.status(400).json(err))
 })
 router.delete('/',passport.authenticate('jwt',{session:false}),async(req,res)=>{
-    // User.findByIdAndRemove(req.user.id)
-    // .then(()=>res.json({msg:'Profile deleted'}))
-    // Profile.findOne({user: req.user.id})
-    // .then((profile) => {
-    //     console.log(profile)
-    // })
     await Profile.findOneAndRemove({user: req.user.id})
     await User.findByIdAndRemove(req.user.id)
     console.log('deleted')
 });
+
+
+
+
 module.exports = router;

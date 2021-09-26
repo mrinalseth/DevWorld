@@ -15,6 +15,12 @@ const PostSchema = new mongoose.Schema({
     avatar:{
         type:String
     },
+    mediaLink: {
+        type:String
+    },
+    mediaType: {
+        type:String
+    },
     likes:[
         {
             user:{

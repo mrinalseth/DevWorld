@@ -23,6 +23,25 @@ const PostFeed = (props) => {
     return (
         <div className="posts">
         {props.posts.map((post) => {
+            let mediaData
+            if(post.mediaType === 'image'){
+                mediaData = <img src={post.mediaLink} style={{
+                    width: "250px",
+                    height: "250px"
+                }} alt="" />
+            }
+            else if(post.mediaType === 'pdf'){
+                mediaData = <a href={post.mediaLink}>Open PDF</a>
+            }
+            else if(post.mediaType === 'word'){
+                mediaData = <a href={post.mediaLink}>Download word file</a>
+            }
+            else if(post.mediaType === 'audio'){
+                mediaData = <audio controls src={post.mediaLink}></audio>
+            }
+            else if(post.mediaType === 'video'){
+                mediaData = <video controls height="250px" width="500px" src={post.mediaLink}></video>
+            }
             return(
                 <div className="card card-body mb-3" key={post._id}>
                     <div className="row">
@@ -36,6 +55,7 @@ const PostFeed = (props) => {
                         </div>
                         <div className="col-md-10">
                         <p className="lead">{post.text}</p>
+                        <p>{mediaData}</p>
                         <button 
                             type="button" 
                             className="btn btn-dark mr-1"

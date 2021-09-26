@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Redirect } from 'react-router'
 import {getPost} from '../../actions/postActions'
 import PostFeed from './PostFeed'
+import storage from '../../firebase'
 
 const Posts = () => {
     
