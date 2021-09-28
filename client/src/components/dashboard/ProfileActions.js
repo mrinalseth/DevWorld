@@ -12,14 +12,14 @@ const ProfileActions = () => {
   }
     return(
         <Container>
-            <Link style={{textDecoration:"none"}} to='/edit-profile' className="btn btn-light">
+            <Link style={{textDecoration:"none"}} to='/edit-profile'>
               <i className="fas fa-user-circle text-info mr-1"></i> <Span>Edit Profile</Span>
             </Link>
-            <Link style={{textDecoration:"none"}} to="/add-experience" className="btn btn-light">
+            <Link style={{textDecoration:"none"}} to="/add-experience">
               <i className="fab fa-black-tie text-info mr-1"></i>
               <Span>Add Experience</Span>
             </Link>
-            <Link style={{textDecoration:"none"}} to="/add-education" className="btn btn-light">
+            <Link style={{textDecoration:"none"}} to="/add-education">
               <i className="fas fa-graduation-cap text-info mr-1"></i>
               <Span>Add Education</Span>
             </Link>
@@ -31,7 +31,8 @@ const Container = styled.div`
   width: 100%,
 `;
 const Span = styled.span`
-  color: #c3f277;
+  color: #558f29;
+  font-weight:500;
   font-size: 20px;
   margin: 30px;
   padding: 5px;

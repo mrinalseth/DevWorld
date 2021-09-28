@@ -34,15 +34,12 @@ function AddEdu(){
       const errors = useSelector(state => state.errors)
 
     return(
-        <div className="add-education">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <a href="dashboard.html" className="btn btn-light">
+            <div>
+              <a href="dashboard.html">
                 Go Back
               </a>
-              <h1 className="display-4 text-center">Add Your Education</h1>
-              <p className="lead text-center">Add any school, bootcamp, etc that you have attended</p>
+              <h1>Add Your Education</h1>
+              <p>Add any school, bootcamp, etc that you have attended</p>
               <small className="d-block pb-3">* = required field</small>
               <form action="add-education" onSubmit={onSubmit}>
                 <TextFieldGroup
@@ -85,7 +82,7 @@ function AddEdu(){
                 disabled={disabled?'disabled':''}
                 onChange={(e) => setTo(e.target.value)}
               />
-                <div className="form-check mb-4">
+                <div>
                 <input
                   className="form-check-input" 
                   type="checkbox" name="current" 
@@ -98,7 +95,7 @@ function AddEdu(){
                     setCurrent(!current)
                   }} 
                   />
-                <label className="form-check-label" htmlFor="current" >
+                <label htmlFor="current" >
                   Current Job
                 </label>
               </div>
@@ -109,13 +106,10 @@ function AddEdu(){
                 errors={errors.description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <small className="form-text text-muted">Some of your responsabilities, etc</small>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+              <small>Some of your responsabilities, etc</small>
+                <input type="submit"/>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
     )
 }
 

@@ -31,15 +31,9 @@ const Posts = () => {
     }
 
     return (
-        <div className="feed">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <PostForm/>
-                        {postContent}
-                    </div>
-                </div>
-            </div>
+        <div>
+            <PostForm/>
+            {postContent}
         </div>
     )
 }

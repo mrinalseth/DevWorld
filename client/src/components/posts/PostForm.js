@@ -59,13 +59,13 @@ const PostForm = () => {
     }
     return (
         <div style={{margin: "100px"}}>
-            <div className="card card-info">
-              <div className="card-header bg-info text-white">
+            <div>
+              <div>
                 Say Somthing...
               </div>
-              <div className="card-body">
+              <div>
                 <form onSubmit ={onSubmit}>
-                  <div className="form-group">
+                  <div>
                   <input type="file" onChange={onChange} />
                     <TextAreaFieldGroup
                         placeholder="Create a post"
@@ -75,7 +75,7 @@ const PostForm = () => {
                         errors ={errors.text}
                     />
                   </div>
-                  <button type="submit" className="btn btn-dark">Submit</button>
+                  <button type="submit">Submit</button>
                 </form>
               </div>
             </div>

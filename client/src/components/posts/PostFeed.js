@@ -21,7 +21,7 @@ const PostFeed = (props) => {
     }
     
     return (
-        <div className="posts">
+        <div >
         {props.posts.map((post) => {
             let mediaData
             if(post.mediaType === 'image'){
@@ -43,46 +43,44 @@ const PostFeed = (props) => {
                 mediaData = <video controls height="250px" width="500px" src={post.mediaLink}></video>
             }
             return(
-                <div className="card card-body mb-3" key={post._id}>
-                    <div className="row">
-                        <div className="col-md-2">
+                <div  key={post._id}>
+                    <div >
+                        <div>
                         <a href="profile.html">
-                            <img className="rounded-circle d-none d-md-block" src={post.avatar}
+                            <img src={post.avatar}
                             alt="" />
                         </a>
                         <br />
-                        <p className="text-center">{post.name}</p>
+                        <p>{post.name}</p>
                         </div>
-                        <div className="col-md-10">
-                        <p className="lead">{post.text}</p>
+                        <div>
+                        <p>{post.text}</p>
                         <p>{mediaData}</p>
                         <button 
                             type="button" 
-                            className="btn btn-dark mr-1"
                             onClick={() => {
                                 dispatch(addLike(post._id))
                             }} >
+                            +
                             <i className={classnames('fa fa-thumbs-up',{
                                 'text-info': findUser(post.likes)
                             })}></i>
-                            <span className="badge badge-light">{post.likes.length }</span>
+                            <span>{post.likes.length }</span>
                         </button>
                         <button 
                             type="button" 
-                            className="btn btn-dark mr-1"
                             onClick={() => {
                                 dispatch(removeLike(post._id))
                             }} >
-                            <i className="text-secondary fas fa-thumbs-down"></i>
+                            <i></i>
                         </button>
                         {
                             post.user === id
                                 ?<button 
-                                type="button" 
-                                className="btn btn-danger mr-1"
+                                type="button"
                                 onClick={() => {onDelete(post._id)}}
                                 >
-                                    <i className="fas fa-times">Delete</i>
+                                    <i>Delete</i>
                                 </button>
                                 :null
                         }

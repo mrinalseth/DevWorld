@@ -55,12 +55,14 @@ function Dashboard()
                     <Content>
                     <CTA>
                         <p>Welcome 
-                            <Link style={{color: "#f28435", textDecoration: "none"
+                            <Link style={{textDecoration: "none"
                             }} to={`/profile/${profile.handle}`}><span style={{
                                 fontSize: "36px"
                             }} >{" "+user.name}</span></Link>
                         </p>
-                        <ProfileActions/><a target="_blank" href={profile.cv}>Resume</a>
+                        <ProfileActions/>
+                        {/* <a target="_blank" href={profile.cv}>Resume</a> */}
+                        <h3 style={{color:"green", fontSize:"32px"}}>Experience</h3>
                         <Experience
                             experience={experience}
                         />
@@ -87,7 +89,7 @@ function Dashboard()
                             <p><span>Someone</span>: Do we know that person</p>
                             <p><span>Other one</span>: How could we, new members has to set up a profile first</p>
                             <p><span>{user.name}(<span>New user</span>)</span>: Just letting you know I can here you two whispering. Just tell me how to set up a Profile.</p>
-                            <p><span>Someone</span>: Here you go <p><Link style={{color: "#c3f277", textDecoration: "none"}} to="/create-profile"> Add Profile</Link></p></p>
+                            <p><span>Someone</span>: Here you go <p><Link style={{textDecoration:"none", color:"black"}} to="/create-profile"> Add Profile</Link></p></p>
                         </div>
                     </CTA>
                     <BgImage/>
@@ -107,7 +109,6 @@ overflow: hidden;
 display: flex;
 flex-direction: column;
 text-align: center;
-height: 100vh
 `;
 
 const Content = styled.div`
@@ -127,7 +128,7 @@ height: 100%;
 const BgImage = styled.div`
     height: 100%;
     backgroung-position: top;
-    background-image: url('/images/dashboard-1.jpeg');
+    background-image: url('https://image.freepik.com/free-vector/hand-painted-watercolor-nature-background_23-2148941599.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;
@@ -140,7 +141,7 @@ const BgImage = styled.div`
 
 const CTA = styled.div`
     margin-bottom: 2vw;
-    max-width: 650px;
+    max-width: 80%;
     flex-wrap: wrap;
     display: flex;
     flex-direction: column;
@@ -154,19 +155,29 @@ const CTA = styled.div`
     transition: opacity 0.2s;
     width: 100%;
     p{
-        color: white;
+        color: #558f29;
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 650;
         font-size: 26px;
         letter-spacing: 5.25px;
+        p{
+            font-size: 32px;
+            width: 25%;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            background-color: #558f29;
+            border-radius: 5px;
+        }
         span{
-            color: #f28435;
+            color: #1b5e1c;
             font-family: 'Bonheur Royale', cursive;
             font-size: 30px;
             span{
                 font-size: 16px;
                 letter-spacing: 1px;
-                color: #c3f277
+                color: #1b5e1c
             }
         }
     }

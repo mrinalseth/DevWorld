@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import './Exp.css'
 
 const Experience = (props) => {
 
@@ -10,47 +11,25 @@ const Experience = (props) => {
 
     const experience = props.experience.map(exp => {
         return(
-            <tr key={exp._id}>
-            <td>{exp.company}</td>
-            <td>{exp.title}</td>
-            <td>{exp.from} - {exp.to}</td>
-            <td>
-                <button className='btn btn-danger' onClick={() => {
-                    handleClick(exp._id)
-                }} >Delete</button>
-            </td>
-        </tr>
+            <div className="container">
+                <div class="column">
+                    <div class="card">
+                        <h3>{exp.company}</h3>
+                        <p>{exp.title}</p>
+                        <p>{exp.from} - {exp.to}</p>
+                        <button className='btn btn-danger' onClick={() => {
+                        handleClick(exp._id)
+                    }} >Delete</button>
+                    </div>
+                </div>
+            </div>
         )
     })
     return(
         <div>
-            <h4 className="mb-4">Experience</h4>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Title</th>
-                        <th>Year</th>
-                        <th></th>
-                    </tr>
-                    {experience}
-                </thead>
-            </table>
+            {experience}
         </div>
     )
 }
-
-// const Experience = (props) => {
-//     const content = props.experience.map((exp) => {
-//         return(
-//             <p>{exp._id}</p>
-//         )
-//     })
-//     return(
-//         <div>
-//             {content}
-//         </div>
-//     )
-// }
 
 export default Experience
