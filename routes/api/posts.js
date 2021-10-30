@@ -15,9 +15,7 @@ router.post('/',passport.authenticate('jwt',{session:false}),(req,res)=>{
     }
     const newPost = new Post({
         text:req.body.text,
-        mediaLink:req.body.mediaLink,
-        mediaType:req.body.mediaType,
-        name:req.body.name, 
+        name:req.body.name,
         avatar:req.body.avatar,
         user:req.user.id
     });
@@ -113,6 +111,8 @@ router.get('/:post_id',(req,res)=>{
     })
     .catch(err=>{return res.status(404).json({msg:'not found'})})
  })
+
+
 
  router.delete('/comment/:post_id/:comm_id',passport.authenticate('jwt',{session:false}),(req,res)=>{
    Post.findById(req.params.post_id)

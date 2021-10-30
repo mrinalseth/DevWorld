@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 // Mongodb------------------------------
 const db = require('./config/keys').mongoURI;
 mongoose
-    .connect("mongodb+srv://mrinalseth3959:infant@123@cluster0.7jw4x.mongodb.net/social?retryWrites=true&w=majority",{ useUnifiedTopology: true,useNewUrlParser: true,useFindAndModify:false })
+    .connect(db,{ useUnifiedTopology: true,useNewUrlParser: true,useFindAndModify:false })
     .then(()=>{console.log('DATABASE CONNECTED')})
     .catch(()=>{console.log(`DATABASE ERROR -----> ${err}`)})
 //Passport Authentication----------------------
@@ -40,6 +40,8 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')) 
     })
 }
+
+
 //-----------------------
 const port = process.env.PORT||5000;
 app.listen(port,()=>{

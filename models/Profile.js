@@ -32,9 +32,6 @@ const ProfileSchema = new mongoose.Schema({
     github:{
         type: String
     },
-    cv:{
-        type: String
-    },
     experience:[
         {
             title:{

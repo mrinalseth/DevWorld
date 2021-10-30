@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
-// import Footer from './components/layout/Footer'
+import Footer from './components/layout/Footer'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Dashboard from './components/dashboard/Dashboard'
@@ -53,6 +53,7 @@ function App() {
       <Route exact path= '/profile/:handle' component={Profile}/>
       <Route exact path= '/post' component={Posts}/>
       <Route exact path= '/post/:id' component={Post}/>
+      <Footer/>
       </div>
       </Router>
     </Provider>

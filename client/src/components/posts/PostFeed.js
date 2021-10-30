@@ -21,66 +21,51 @@ const PostFeed = (props) => {
     }
     
     return (
-        <div >
+        <div className="posts">
         {props.posts.map((post) => {
-            let mediaData
-            if(post.mediaType === 'image'){
-                mediaData = <img src={post.mediaLink} style={{
-                    width: "250px",
-                    height: "250px"
-                }} alt="" />
-            }
-            else if(post.mediaType === 'pdf'){
-                mediaData = <a href={post.mediaLink}>Open PDF</a>
-            }
-            else if(post.mediaType === 'word'){
-                mediaData = <a href={post.mediaLink}>Download word file</a>
-            }
-            else if(post.mediaType === 'audio'){
-                mediaData = <audio controls src={post.mediaLink}></audio>
-            }
-            else if(post.mediaType === 'video'){
-                mediaData = <video controls height="250px" width="500px" src={post.mediaLink}></video>
-            }
             return(
-                <div  key={post._id}>
-                    <div >
-                        <div>
+                <div className="card card-body mb-3" key={post._id}>
+                    <div className="row">
+                        <div className="col-md-2">
                         <a href="profile.html">
-                            <img src={post.avatar}
+                            <img className="rounded-circle d-none d-md-block" src={post.avatar}
                             alt="" />
                         </a>
                         <br />
-                        <p>{post.name}</p>
+                        <p className="text-center">{post.name}</p>
                         </div>
-                        <div>
-                        <p>{post.text}</p>
-                        <p>{mediaData}</p>
+                        <div className="col-md-10">
+                        <p className="lead">{post.text}</p>
                         <button 
                             type="button" 
+                            className="btn btn-dark mr-1"
                             onClick={() => {
                                 dispatch(addLike(post._id))
                             }} >
-                            +
                             <i className={classnames('fa fa-thumbs-up',{
                                 'text-info': findUser(post.likes)
                             })}></i>
-                            <span>{post.likes.length }</span>
+                            <span className="badge badge-light">{post.likes.length }</span>
                         </button>
                         <button 
                             type="button" 
+                            className="btn btn-dark mr-1"
                             onClick={() => {
                                 dispatch(removeLike(post._id))
                             }} >
-                            <i></i>
+                            <i className="text-secondary fas fa-thumbs-down"></i>
                         </button>
+                        <Link to={`/post/${post._id}`} className="btn btn-info">
+                            Comment
+                        </Link>
                         {
                             post.user === id
                                 ?<button 
-                                type="button"
+                                type="button" 
+                                className="btn btn-danger mr-1"
                                 onClick={() => {onDelete(post._id)}}
                                 >
-                                    <i>Delete</i>
+                                    <i className="fas fa-times">Delete</i>
                                 </button>
                                 :null
                         }

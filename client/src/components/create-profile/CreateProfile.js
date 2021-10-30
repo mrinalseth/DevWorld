@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {createProfile} from '../../actions/profileActions'
 import TextWithIcon from '../common/TextWithIcon'
-import storage from '../../firebase'
 
 const CreateProfile = () => {
     const dispatch = useDispatch()
@@ -15,7 +14,6 @@ const CreateProfile = () => {
 
  
     const [handle,setHandle] = React.useState("")
-    const [cv, setCv] = React.useState('')
     const [company,setCompany] = React.useState("")
     const [website,setWebsite] = React.useState("")
     const [location,setLocation] = React.useState("")
@@ -28,19 +26,12 @@ const CreateProfile = () => {
     const [linkdin,setLinkedin] = React.useState("")
     const [youtube,setYoutube] = React.useState("")
     const [instagram,setInstagram] = React.useState("")
-    const [file, setFile] = React.useState(null)
-
     let errors = useSelector(store => store.errors)
 
-    const onSubmit = async(e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
-        const storageRef = storage.ref()
-        const fileRef = storageRef.child(file.name)
-        await fileRef.put(file)
-        const fileUrl = await fileRef.getDownloadURL()
         const newprofile = {
             handle: handle,
-            cv:fileUrl,
             status:status,
             company:company,
             website:website,
@@ -57,9 +48,6 @@ const CreateProfile = () => {
         console.log(newprofile)
         dispatch(createProfile(newprofile))
         
-    }
-    const onchange = (e) => {
-      setFile(e.target.files[0])
     }
 
     const options = [
@@ -78,7 +66,7 @@ const CreateProfile = () => {
         return(<Redirect to="/login" />)
     }else{
     return(
-        <div style={{margin: "100px"}}>
+        <div className="create-profile">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -203,7 +191,6 @@ const CreateProfile = () => {
                     type="submit" 
                     className="btn btn-info btn-block mt-4"
                      />
-                <input type="file" onChange={onchange} required/>
               </form>
             </div>
           </div>

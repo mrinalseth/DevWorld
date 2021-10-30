@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Redirect } from 'react-router'
 import {getPost} from '../../actions/postActions'
 import PostFeed from './PostFeed'
-import storage from '../../firebase'
 
 const Posts = () => {
     
@@ -31,9 +30,15 @@ const Posts = () => {
     }
 
     return (
-        <div>
-            <PostForm/>
-            {postContent}
+        <div className="feed">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <PostForm/>
+                        {postContent}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

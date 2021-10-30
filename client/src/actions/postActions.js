@@ -65,13 +65,10 @@ const getSinglePost = (id) => {
     return async dispatch => {
         dispatch(setPostLoading())
         try{
-            const res = await axios
-            axios.get(`/api/post/${id}`)
-            .then(res => {
-                dispatch({
-                    type: GET_POST ,
-                    payload: res.data
-                })
+            const res = await axios.get(`/api/post/${id}`)
+            dispatch({
+                type: GET_POST,
+                payload: res.data
             })
         }catch(err){
             dispatch({
@@ -81,7 +78,6 @@ const getSinglePost = (id) => {
         }
     }
 }
-
 // delete post
 
 const deletePost = id => dispatch => {

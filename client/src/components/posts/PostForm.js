@@ -3,70 +3,35 @@ import TextAreaFieldGroup from '../common/TextAreaFeildGroup'
 import {addPost} from '../../actions/postActions'
 import {useSelector, useDispatch} from 'react-redux'
 import {getPost} from '../../actions/postActions'
-import storage from '../../firebase'
 
 
 const PostForm = () => {
 
     const [text, setText] = useState('')
-    const [file, setFile] = useState(null)
-
     let errors = useSelector(state => state.errors)
     const {user:{name,avatar}} = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    const onSubmit = async(e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
-        const storageRef = storage.ref()
-        const fileRef = storageRef.child(file.name)
-        await fileRef.put(file)
-        const fileUrl = await fileRef.getDownloadURL()
-        const getType = () => {
-          let type
-          if(file.type.includes('image')){
-            type = "image"
-          }
-          else if(file.type.includes('pdf')){
-            type = "pdf"
-          }
-          else if(file.type.includes('officedocument')){
-            type = "word"
-          }
-          else if(file.type.includes('msword')){
-            type = "word"
-          }
-          else if(file.type.includes('video')){
-            type = 'video'
-          }
-          else if(file.type.includes('audio')){
-            type = 'audio'
-          }
-          return type
-        }
         const newpost = {
             text,
             name,
-            avatar,
-            mediaLink: fileUrl,
-            mediaType: getType()
+            avatar
         }
         dispatch(addPost(newpost))
         dispatch(getPost())
         setText('')
         errors.text = null
     }
-    const onChange = (e) => {
-      setFile(e.target.files[0])
-    }
     return (
-        <div style={{margin: "100px"}}>
-            <div>
-              <div>
+        <div className="post-form mb-3">
+            <div className="card card-info">
+              <div className="card-header bg-info text-white">
                 Say Somthing...
               </div>
-              <div>
+              <div className="card-body">
                 <form onSubmit ={onSubmit}>
-                  <div>
-                  <input type="file" onChange={onChange} />
+                  <div className="form-group">
                     <TextAreaFieldGroup
                         placeholder="Create a post"
                         name={text}
@@ -75,7 +40,7 @@ const PostForm = () => {
                         errors ={errors.text}
                     />
                   </div>
-                  <button type="submit">Submit</button>
+                  <button type="submit" className="btn btn-dark">Submit</button>
                 </form>
               </div>
             </div>

@@ -10,7 +10,11 @@ const Post = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
     useEffect(() => {
-        dispatch(getSinglePost(id))
+        // dispatch(getSinglePost(id))
+        const fetch = async () => {
+            dispatch(getSinglePost(id))
+        }
+        fetch()
     },[])
     const {post, loading} = useSelector(state => state.post)
     let postData;
@@ -36,7 +40,9 @@ const Post = () => {
                     </div>
                 </div>
                 <CommentForm post = {post} />
-                <DisplayComment post={post} />
+                {/* <DisplayComment post={post} /> */}
+                <div>
+                </div>
             </div>
         )
     }
@@ -47,6 +53,7 @@ const Post = () => {
                 <div className="row">
                     <div className="col-md-12">
                         {postData}
+                        {console.log(post)}
                     </div>
                 </div>
             </div>
